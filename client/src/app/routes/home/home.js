@@ -9,12 +9,14 @@ class Home extends Component {
 
 
   render() {
-  	let rows = [];
-  	this.props.companies.forEach( (company, index) => 
+    const { home, getDomains, addCompany, updateCompany } = this.props,
+          rows = [];
+
+  	home.companies.forEach( (company, index) => 
   		rows.push(
   			<tr key={index} className="company">
   				<td width="50%">
-  					<input className="form-control company-name" value={company.name} onChange={e => this.props.updateCompany(e.target.value, index)}/>
+  					<input className="form-control company-name" value={company.name} onChange={e => updateCompany(e.target.value, index)}/>
   				</td>
   				<td id="domain">
   					<span>{company.domain}</span>
@@ -26,9 +28,9 @@ class Home extends Component {
     return (
       <div className="home">
         <h1>Home</h1>
-        <button className="btn btn-primary get-domains" onClick={this.props.getDomains}>Get Domains</button>
-    		<button className="btn btn-info add-company" onClick={this.props.addCompany}>Add Company</button>
-        {this.props.home.error && <div className="alert alert-danger">{this.props.home.error}</div>}
+        <button className="btn btn-primary get-domains" onClick={() => getDomains(home.companies)}>Get Domains</button>
+    		<button className="btn btn-info add-company" onClick={addCompany}>Add Company</button>
+        {this.props.home.error && <div className="alert alert-danger">{home.error}</div>}
         <table className="table table-striped">
         	<thead>
         		<tr>
@@ -46,6 +48,6 @@ class Home extends Component {
 }
 
 export default connect(
-  (state) => ({home: state.home.companies}), 
+  (state) => ({home: state.home}), 
   (dispatch) => (bindActionCreators({updateCompany, addCompany, getDomains}, dispatch))
 )(Home);

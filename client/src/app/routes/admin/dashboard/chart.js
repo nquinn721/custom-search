@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import * as d3 from "d3";
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { getApiCallTimes } from '../../../redux/actions/admin';
 import './chart.css';
 
 
@@ -7,12 +10,18 @@ import './chart.css';
 class Chart extends Component{
   state = {};
 
-  // async componentDidMount(){
-  //   const callTimes = await Service.get('/api/api-call-times');
-  //   this.createChart(callTimes);
-  // }
+  async componentDidMount(){
+    await this.props.getApiCallTimes();
+  }
   render(){
-    return <div>Chart</div>
+    const { callTimes } = this.props.admin;
+
+    if(callTimes){
+        this.createChart(this.props.admin.callTimes);
+        return <div>Chart</div>;
+    }
+
+    return <div></div>;
   }
   createChart(callTimes){ 
     const margin = {top: 50, right: 50, bottom: 50, left: 50}
@@ -77,4 +86,7 @@ class Chart extends Component{
 
 }
 
-export default Chart;
+export default connect(
+  (state) => ({admin: state.admin}), 
+  (dispatch) => (bindActionCreators({getApiCallTimes}, dispatch))
+)(Chart);
