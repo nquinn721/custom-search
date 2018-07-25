@@ -11,7 +11,7 @@ module.exports = (sequelize) => {
 	return class TokenModel{
 		static async seed(){
 			try{
-				Token.create({token: '12345'});
+				await Token.create({token: '12345'});
 			}catch(e){
 				console.log('failed to get token', e);
 			}

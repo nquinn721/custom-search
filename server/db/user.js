@@ -1,12 +1,6 @@
 const Sequelize = require('sequelize'),
 	  sha1 = require('sha1');
 
-const users = [
-	{username: 'nate', password: 'nate123'},
-	{username: 'bob', password: 'bob123'},
-	{username: 'jeff', password: 'jeff123'},
-	{username: 'walter', password: 'walter123'}
-];
 
 module.exports = (sequelize) => {
 	const User = sequelize.define('user', {
@@ -21,7 +15,8 @@ module.exports = (sequelize) => {
 
 	return class UserModel{
 		static async seed(){
-			users.forEach(async v => await this.createUser(v.username, v.password));
+			console.log('seeded user');
+			await this.createUser('nate', 'nate123');
 		}
 		static async createUser(username, password){
 			const user = await User.create({username, password: sha1(password)});

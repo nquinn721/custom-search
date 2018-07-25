@@ -15,7 +15,7 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'client/build')));
 
-app.use(async (req, res, next) => {
+const routeToken = async (req, res, next) => {
 	let token =  await DB.token.getToken();
 		token = token.token;
 
@@ -27,18 +27,23 @@ app.use(async (req, res, next) => {
 	}else{
 		res.json({error: 'unauthorized'});
 	}
+};
+
+app.get('/seed', async (req, res) => {
+	for(let model in DB) DB[model].seed && DB[model].seed();
+	res.send('Seeded the database');
 });
 
 
+app.post('/login', routeToken, async (req, res) => 
+	res.json(await DB.user.login(req.body)));
 
-app.post('/api/companies', async (req, res) => 
+app.post('/api/companies', routeToken, async (req, res) => 
 	res.json(await Search.searchMultiple(req.body.companies)));
 
-app.get('/api/api-call-times', async (req, res) => 
+app.get('/api/api-call-times', routeToken, async (req, res) => 
 	res.json(await DB.csApiStats.getTimes()));
 
-app.post('/login', async (req, res) => 
-	res.json(await DB.user.login(req.body)));
 
  
 
