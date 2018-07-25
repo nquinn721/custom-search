@@ -1,0 +1,17 @@
+.admin{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+}
+
+.admin .login{
+	width: 400px;
+}
+
+.admin .login .panel-body{
+	height: 200px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}

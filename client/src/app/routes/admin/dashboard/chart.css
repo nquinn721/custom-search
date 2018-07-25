@@ -1,0 +1,45 @@
+.line {
+    fill: none;
+    stroke: #ffab00;
+    stroke-width: 3;
+}
+.average-line{
+	fill: none;
+	stroke: #d23939;
+	stroke-width: 3;
+}
+  
+.overlay {
+  fill: none;
+  pointer-events: all;
+}
+
+/* Style the dots by assigning a fill and stroke */
+.dot {
+    fill: #ffab00;
+    stroke: #fff;
+}
+  
+.focus circle {
+  fill: none;
+  stroke: steelblue;
+}
+
+.circle{
+	border-radius: 100px;
+	width: 5px;
+	height: 5px;
+	margin: 7px;
+}
+.circle.average{
+	background: #d23939;
+}
+.circle.times{
+	background: #ffab00;
+}
+.legend{
+	display: flex;
+}
+.legend > div{
+	display: flex;
+}

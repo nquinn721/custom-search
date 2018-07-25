@@ -1,0 +1,17 @@
+.app-header {
+    display: flex;
+    background: #545454;
+}
+
+.app-header span {
+    padding: 10px;
+}
+
+.app-header span a {
+    color: white;
+    text-decoration: none;
+}
+
+.content{
+  padding: 10px;
+}
